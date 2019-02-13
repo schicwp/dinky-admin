@@ -1,0 +1,46 @@
+<div class="card shadow mb-4">
+  <!-- Card Header - Dropdown -->
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Workflow: {{workflow.name}}</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <h5>States:</h5>
+    <ul>
+      <li *ngFor="let state of workflow.states">{{state.name}}</li>
+    </ul>
+
+    <h5>Actions</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Entry Point</th>
+          <th>Next State</th>
+          <th>Allowed Source States</th>
+          <th>Allowed Groups</th>
+          <th>Hooks</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let action of workflow.actions">
+        <th>{{action.name}}</th>
+        <td>{{action.entryPoint}}</td>
+        <td>{{action.nextState}}</td>
+        <td>{{action.sourceStates}}</td>
+        <td>{{action.allowedGroups}}</td>
+        <td>
+          <div *ngFor="let hook of action.hooks">
+            <strong>{{hook.name}}</strong>
+            <table class="table table-sm">
+              <tr *ngFor="let prop of hook.config | keyvalue">
+                <th>{{prop.key}}</th>
+                <td>{{prop.value}}</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+  </div>
+</div>

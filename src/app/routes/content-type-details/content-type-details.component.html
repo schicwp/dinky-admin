@@ -1,0 +1,41 @@
+<div class="card shadow mb-4">
+  <!-- Card Header - Dropdown -->
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Content Type: {{contentType.name}}</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <h6>Workflows: {{contentType.workflows}}</h6>
+
+    <h6>Fields:</h6>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Indexed</th>
+        <th>Config</th>
+      </tr>
+      </thead>
+      <tr *ngFor="let field of contentType.fields">
+        <th>{{field.name}}</th>
+        <td>{{field.type}}</td>
+        <td>{{field.required}}</td>
+        <td>{{field.indexed}}</td>
+        <td>
+          <table class="table table-sm table-bordered">
+            <tr *ngFor="let prop of field.config | keyvalue">
+              <th>{{prop.key}}</th>
+              <td>{{prop.value}}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+
+        </td>
+
+      </tr>
+    </table>
+  </div>
+</div>

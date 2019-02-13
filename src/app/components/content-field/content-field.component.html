@@ -1,0 +1,10 @@
+
+
+
+<ng-container [ngSwitch]="field.type">
+
+  <app-object-ref *ngSwitchCase="'ObjectRef'"  [field]="field" [value]="value" [state]="state" (valueChange)="valueChange.emit($event)"></app-object-ref>
+  <app-collection *ngSwitchCase="'Collection'" [field]="field" [value]="value" [state]="state" (valueChange)="valueChange.emit($event)"></app-collection>
+  <app-string *ngSwitchDefault                  [field]="field" [value]="value" [state]="state" (valueChange)="valueChange.emit($event)"></app-string>
+
+</ng-container>

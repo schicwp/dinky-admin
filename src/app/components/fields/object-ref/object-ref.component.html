@@ -1,0 +1,13 @@
+
+<div *ngIf="content && state == 'view'">
+  <a [routerLink]="'/content/' + content.type + '/' + content.id">{{content.name}} ({{content.type}})</a>
+</div>
+
+
+<ng-select *ngIf="state == 'edit'"
+          [items]="options"
+           (search)="search($event)"
+           bindLabel="name"
+            (change)="onChange($event)"
+           [(ngModel)]="content">
+</ng-select>

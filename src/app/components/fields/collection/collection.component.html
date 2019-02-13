@@ -1,0 +1,24 @@
+
+<div class="card mb-3 border-left-primary shadow py-2">
+  <div class="card-body">
+
+    <div class="row">
+      <div *ngFor="let v of value" class="col-6 row mb-2">
+        <app-content-field [field]="field.config.collectionType" [value]="v" [state]="state" class="col-8"></app-content-field>
+        <div class="col-4" *ngIf="state == 'edit'"><span class="btn btn-outline-danger">remove</span></div>
+      </div>
+    </div>
+    <hr *ngIf="state == 'edit'">
+    <div class="row" *ngIf="state == 'edit'">
+      <div class="col-8">
+        <app-content-field [field]="field.config.collectionType" [value]="newValue" [state]="state" (valueChange)="onNewValueChange($event)"></app-content-field>
+      </div>
+      <div class="col-2">
+        <span class="btn btn-outline-success" (click)="addNewValue()">Add</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

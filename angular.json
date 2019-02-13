@@ -23,6 +23,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap-reboot.css",
+              "node_modules/bootstrap/dist/css/bootstrap-grid.css",
+              "src/assets/sb-admin-2.min.css",
               "src/styles.css"
             ],
             "scripts": []

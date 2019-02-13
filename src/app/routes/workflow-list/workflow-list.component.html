@@ -1,0 +1,31 @@
+<div class="card border-left-primary shadow h-100 ">
+  <div class="card-header">
+    Workflows
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>States</th>
+          <th>Actions</th>
+        </tr>
+      <tr *ngFor="let workflow of workflows" [routerLink]="'/workflows/' + workflow.name">
+        <td>{{workflow.name}}</td>
+        <td>
+          <span *ngFor="let state of workflow.states">
+            {{state.name}}
+          </span>
+
+        </td>
+        <td>
+          <span *ngFor="let action of workflow.actions">
+            {{action.name}}
+          </span>
+
+        </td>
+      </tr>
+      </thead>
+    </table>
+  </div>
+</div>

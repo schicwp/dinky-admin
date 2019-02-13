@@ -1,0 +1,9 @@
+
+
+
+<input *ngIf="!field?.config?.allowedValues" type="text" class="form-control" [name]="field.name" aria-describedby="emailHelp" [(ngModel)]="value" (change)="valueChange.emit(value)" [disabled]="state =='view'">
+
+
+<select *ngIf="field?.config?.allowedValues" class="form-control" [(ngModel)]="value" (change)="valueChange.emit(value)" [disabled]="state =='view'">
+  <option *ngFor="let option of field.config.allowedValues">{{option}}</option>
+</select>
