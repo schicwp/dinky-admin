@@ -1,0 +1,15 @@
+
+<div class="row align-middle">
+
+  <div class="d-flex col align-middle justify-content-center align-content-center align-items-center" >
+    <div class="input-group">
+      <input class="form-control" type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="date" (ngModelChange)="onChange()" [disabled]="state =='view'"/>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" [disabled]="state =='view'">Toggle</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <ngb-timepicker [(ngModel)]="time" (ngModelChange)="onChange()" [disabled]="state =='view'"></ngb-timepicker>
+  </div>
+</div>

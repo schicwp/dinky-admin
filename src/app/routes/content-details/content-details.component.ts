@@ -7,6 +7,7 @@ import {ContentType} from "../../model/config/content-type.model";
 import {Workflow} from "../../model/config/workflow.model";
 import {ContentSubmission} from "../../model/config/content-submission.model";
 import {Action} from "../../model/config/action.model";
+import {Page} from "../../model/page.model";
 
 @Component({
   selector: 'app-content-details',
@@ -16,7 +17,8 @@ import {Action} from "../../model/config/action.model";
 export class ContentDetailsComponent implements OnInit {
   content:Content;
   contentType:ContentType
-  workflows:{[s:string]:Workflow} = {}
+  workflows:{[s:string]:Workflow} = {};
+  history:Page<Content>;
 
   state:string = "view";
 
@@ -25,6 +27,7 @@ export class ContentDetailsComponent implements OnInit {
   ngOnInit() {
 
     this.activatedRoute.params.subscribe((p:any)=>{
+
       this.contentService.get(p.id).subscribe(content=>{
         this.content = content;
 
@@ -36,6 +39,10 @@ export class ContentDetailsComponent implements OnInit {
           })
         })
       })
+
+      this.contentService.getHistory(p.id,0,10).subscribe( h=>this.history = h)
+
+
     })
 
   }
@@ -51,6 +58,7 @@ export class ContentDetailsComponent implements OnInit {
     )).subscribe( c=> {
       this.content = c;
       this.state = 'view'
+      this.ngOnInit()
     })
   }
 

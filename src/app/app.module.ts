@@ -17,7 +17,8 @@ import { CollectionComponent } from './components/fields/collection/collection.c
 import { ContentFieldComponent } from './components/content-field/content-field.component';
 import { StringComponent } from './components/fields/string/string.component';
 import {NgSelectModule} from "@ng-select/ng-select";
-import {NgbTabsetModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepicker, NgbDatepickerModule, NgbTabsetModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import { DateFieldComponent } from './components/fields/date-field/date-field.component';
 
 
 const routes: Routes = [
@@ -43,7 +44,8 @@ const routes: Routes = [
     ObjectRefComponent,
     CollectionComponent,
     ContentFieldComponent,
-    StringComponent
+    StringComponent,
+    DateFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,9 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     NgSelectModule,
-    NgbTabsetModule
+    NgbTabsetModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule
   ],
   providers: [
     {

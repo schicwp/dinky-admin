@@ -15,11 +15,24 @@ export class ContentService {
 
 
   list(type:string,page:number,size:number):Observable<Page<Content>>{
-    return this.httpClient.get<Page<Content>>("/api/v1/content",{params:{type:type,page:page,size:size} as HttpParams})
+
+    let params = new HttpParams()
+      .set("type",type)
+      .set("page",`${page}`)
+      .set("size",`${size}`);
+
+    return this.httpClient.get<Page<Content>>("/api/v1/content",{params:params})
   }
 
   search(type:string,q:string,page:number,size:number):Observable<Page<Content>>{
-    return this.httpClient.get<Page<Content>>("/api/v1/content",{params:{type:type,page:page,size:size,q:q} as HttpParams})
+
+    let params = new HttpParams()
+      .set("type",type)
+      .set("page",`${page}`)
+      .set("size",`${size}`)
+      .set("q",q);
+
+    return this.httpClient.get<Page<Content>>("/api/v1/content",{params:params})
   }
 
   submit(content:ContentSubmission):Observable<Content>{
@@ -29,5 +42,16 @@ export class ContentService {
 
   get(id:string):Observable<Content>{
     return this.httpClient.get<Content>(`/api/v1/content/${id}`)
+  }
+
+  getHistory(id:string,page:number,size:number):Observable<Page<Content>>{
+
+    let params = new HttpParams()
+      .set("page",`${page}`)
+      .set("size",`${size}`);
+
+
+    return this.httpClient.get<Page<Content>>(`/api/v1/content/${id}/history`,{params:params})
+
   }
 }

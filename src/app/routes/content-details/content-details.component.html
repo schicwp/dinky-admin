@@ -1,102 +1,129 @@
-<div class="card mb-6">
+<div class="card">
 
   <div class="card-body">
 
-<ngb-tabset>
-  <ngb-tab title="Content">
-    <ng-template ngbTabContent>
+    <ngb-tabset>
+      <ngb-tab title="Content">
+        <ng-template ngbTabContent>
 
-    <!-- Card Body -->
-    <div class="card-body">
-      <div class=" py-3 d-flex flex-row align-items-center justify-content-between">
-        <span *ngIf="state == 'view'"><h5>{{content.name}}</h5></span>
-        <span *ngIf="state == 'view'" class="btn  btn-outline-primary float-right" (click)="state = 'edit'">edit</span>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class=" py-3 d-flex flex-row align-items-center justify-content-between">
+              <span *ngIf="state == 'view'">
+                <h5>{{content.name}}</h5>
+                <small> Type: {{content.type}} | State: {{content.state}}</small>
+              </span>
+              <span *ngIf="state == 'view'" class="btn  btn-outline-primary float-right"
+                    (click)="state = 'edit'">edit</span>
 
-        <span *ngIf="state == 'edit'">
+              <span *ngIf="state == 'edit'">
           <span *ngIf="state == 'edit'" class="btn  btn-outline-success mr-2" (click)="save()">save</span>
           <span *ngIf="state == 'edit'" class="btn  btn-outline-warning " (click)="cancel()">cancel</span>
         </span>
 
-        <span *ngIf="state == 'edit'">
-          <span class="btn   btn-outline-primary mr-2" *ngFor="let action of getAvailableActions(content)" (click)="executeAction(action.name)">
+              <span *ngIf="state == 'edit'">
+          <span class="btn   btn-outline-primary mr-2" *ngFor="let action of getAvailableActions(content)"
+                (click)="executeAction(action.name)">
             {{action.name}}
           </span>
 
         </span>
-      </div>
+            </div>
 
-      <form>
+            <form>
 
-        <div class="form-group" *ngFor="let field of contentType.fields" >
-          <label >{{field.name}}</label>
-          <app-content-field  [state]="state" [value]="content.content[field.name]" [field]="field" (valueChange)="content.content[field.name] = $event"></app-content-field>
+              <div class="form-group" *ngFor="let field of contentType.fields">
+                <label>{{field.name}}</label>
+                <app-content-field [state]="state" [value]="content.content[field.name]" [field]="field"
+                                   (valueChange)="content.content[field.name] = $event"></app-content-field>
 
-        </div>
+              </div>
 
-      </form>
-    </div>
-    </ng-template>
+            </form>
+          </div>
+        </ng-template>
 
-  </ngb-tab>
-  <ngb-tab title="Metadata">
-    <ng-template ngbTabContent>
-      <div class="card-body">
+      </ngb-tab>
+      <ngb-tab title="Metadata">
+        <ng-template ngbTabContent>
+          <div class="card-body">
 
 
-    <table class="table ">
-      <thead>
-        <tr>
-          <th>Property</th>
-          <th>Value</th>
-        </tr>
-      </thead>
+            <table class="table ">
+              <thead>
+              <tr>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+              </thead>
 
-      <tr>
-        <th>Id</th>
-        <td>{{content.id}}</td>
-      </tr>
-      <tr>
-        <th>Name</th>
-        <td>{{content.name}}</td>
-      </tr>
-      <tr>
-        <th>Version</th>
-        <td>{{content.version}}</td>
-      </tr>
-      <tr>
-        <th>Modified</th>
-        <td>{{content.modified | date: 'medium'}}</td>
-      </tr>
-      <tr>
-        <th>Created</th>
-        <td>{{content.created | date: 'medium'}}</td>
-      </tr>
-      <tr>
-        <th>Workflow</th>
-        <td>{{content.workflow}}</td>
-      </tr>
-      <tr>
-        <th>State</th>
-        <td>{{content.state}}</td>
-      </tr>
-      <tr>
-        <th>Owner</th>
-        <td>{{content.owner}}</td>
-      </tr>
-      <tr>
-        <th>Assigned Group</th>
-        <td>{{content.assignedGroup}}</td>
-      </tr>
-      <tr>
-        <th>Assigned User</th>
-        <td>{{content.assignedUser}}</td>
-      </tr>
-    </table>
-      </div>
-    </ng-template>
+              <tr>
+                <th>Id</th>
+                <td>{{content.id}}</td>
+              </tr>
+              <tr>
+                <th>Name</th>
+                <td>{{content.name}}</td>
+              </tr>
+              <tr>
+                <th>Version</th>
+                <td>{{content.version}}</td>
+              </tr>
+              <tr>
+                <th>Modified</th>
+                <td>{{content.modified | date: 'medium'}}</td>
+              </tr>
+              <tr>
+                <th>Created</th>
+                <td>{{content.created | date: 'medium'}}</td>
+              </tr>
+              <tr>
+                <th>Workflow</th>
+                <td>{{content.workflow}}</td>
+              </tr>
+              <tr>
+                <th>State</th>
+                <td>{{content.state}}</td>
+              </tr>
+              <tr>
+                <th>Owner</th>
+                <td>{{content.owner}}</td>
+              </tr>
+              <tr>
+                <th>Assigned Group</th>
+                <td>{{content.assignedGroup}}</td>
+              </tr>
+              <tr>
+                <th>Assigned User</th>
+                <td>{{content.assignedUser}}</td>
+              </tr>
+            </table>
+          </div>
+        </ng-template>
 
-  </ngb-tab>
-</ngb-tabset>
+      </ngb-tab>
+      <ngb-tab title="History">
+        <ng-template ngbTabContent>
+          <div class="card-body">
+
+            <table class="table">
+              <tr>
+                <th>Version</th>
+                <th>State</th>
+                <th>Date</th>
+              </tr>
+              <tr *ngFor="let version of history.content">
+                <td>{{version.version}}</td>
+                <td>{{version.state}}</td>
+                <td>{{version.modified | date: "medium"}}</td>
+              </tr>
+            </table>
+
+
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
   </div>
 
 </div>
