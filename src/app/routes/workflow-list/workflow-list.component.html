@@ -10,16 +10,21 @@
           <th>States</th>
           <th>Actions</th>
         </tr>
-      <tr *ngFor="let workflow of workflows" [routerLink]="'/workflows/' + workflow.name">
-        <td>{{workflow.name}}</td>
+      <tr *ngFor="let workflow of workflows" >
         <td>
-          <span *ngFor="let state of workflow.states">
+          <a [routerLink]="'/workflows/' + workflow.name">
+            {{workflow.name}}
+          </a>
+
+        </td>
+        <td>
+          <span *ngFor="let state of workflow.states" class="badge badge-pill badge-primary mr-2">
             {{state.name}}
           </span>
 
         </td>
         <td>
-          <span *ngFor="let action of workflow.actions">
+          <span *ngFor="let action of workflow.actions" class="badge badge-pill badge-warning mr-2">
             {{action.name}}
           </span>
 

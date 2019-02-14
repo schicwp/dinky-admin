@@ -1,12 +1,15 @@
-
+<ng-container *ngIf="state == 'edit'">
 <div class="card mb-3 border-left-primary shadow py-2">
   <div class="card-body">
 
     <div class="row">
-      <div *ngFor="let v of value" class="col-6 row mb-2">
+      <div *ngFor="let v of value" class="col-12 row mb-2">
         <app-content-field [field]="field.config.collectionType" [value]="v" [state]="state" class="col-8"></app-content-field>
-        <div class="col-4" *ngIf="state == 'edit'"><span class="btn btn-outline-danger">remove</span></div>
+        <div class="col-4" *ngIf="state == 'edit'"><span class="btn btn-outline-danger" (click)="remove(v)">remove</span></div>
       </div>
+    </div>
+    <div *ngIf="!value || value.length < 1" class="col mb-2">
+      <em><code>(none)</code></em>
     </div>
     <hr *ngIf="state == 'edit'">
     <div class="row" *ngIf="state == 'edit'">
@@ -19,6 +22,20 @@
 
     </div>
 
+  </div>
+
+</div>
+</ng-container>
+
+<div  *ngIf="state == 'view'">
+  <span *ngFor="let v of value" class=" mb-2 mr-2">
+    <span class="badge badge-light">
+      <app-content-field [field]="field.config.collectionType" [value]="v" [state]="state"></app-content-field>
+    </span>
+  </span>
+
+  <div *ngIf="!value || value.length < 1" class="col mb-2">
+    <em><code>(none)</code></em>
   </div>
 
 </div>

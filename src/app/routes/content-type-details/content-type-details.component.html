@@ -21,15 +21,14 @@
       <tr *ngFor="let field of contentType.fields">
         <th>{{field.name}}</th>
         <td>{{field.type}}</td>
-        <td>{{field.required}}</td>
-        <td>{{field.indexed}}</td>
         <td>
-          <table class="table table-sm table-bordered">
-            <tr *ngFor="let prop of field.config | keyvalue">
-              <th>{{prop.key}}</th>
-              <td>{{prop.value}}</td>
-            </tr>
-          </table>
+          <app-boolean-indicator [value]="field.required"></app-boolean-indicator>
+        </td>
+        <td>
+          <app-boolean-indicator [value]="field.indexed"></app-boolean-indicator>
+        </td>
+        <td>
+          <app-config-view [value]="field.config"></app-config-view>
         </td>
         <td>
 

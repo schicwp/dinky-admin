@@ -1,6 +1,6 @@
 <div class="card">
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="content && contentType">
 
     <ngb-tabset>
       <ngb-tab title="Content">
@@ -13,12 +13,12 @@
                 <h5>{{content.name}}</h5>
                 <small> Type: {{content.type}} | State: {{content.state}}</small>
               </span>
-              <span *ngIf="state == 'view'" class="btn  btn-outline-primary float-right"
+              <span *ngIf="state == 'view'" class="btn  btn-primary float-right"
                     (click)="state = 'edit'">edit</span>
 
               <span *ngIf="state == 'edit'">
-          <span *ngIf="state == 'edit'" class="btn  btn-outline-success mr-2" (click)="save()">save</span>
-          <span *ngIf="state == 'edit'" class="btn  btn-outline-warning " (click)="cancel()">cancel</span>
+          <span *ngIf="state == 'edit'" class="btn  btn-success mr-2" (click)="save()">save</span>
+          <span *ngIf="state == 'edit'" class="btn  btn-warning " (click)="cancel()">cancel</span>
         </span>
 
               <span *ngIf="state == 'edit'">
@@ -32,7 +32,7 @@
 
             <form>
 
-              <div class="form-group" *ngFor="let field of contentType.fields">
+              <div class="form-group" *ngFor="let field of contentType?.fields">
                 <label>{{field.name}}</label>
                 <app-content-field [state]="state" [value]="content.content[field.name]" [field]="field"
                                    (valueChange)="content.content[field.name] = $event"></app-content-field>
@@ -49,7 +49,7 @@
           <div class="card-body">
 
 
-            <table class="table ">
+            <table class="table table-bordered table-striped">
               <thead>
               <tr>
                 <th>Property</th>
@@ -96,6 +96,62 @@
               <tr>
                 <th>Assigned User</th>
                 <td>{{content.assignedUser}}</td>
+              </tr>
+              <tr>
+                <th>Permissions</th>
+                <td>
+                  <table class="table table-sm bg-white ">
+                    <thead>
+                      <tr class="bg-white">
+                        <th></th>
+                        <th>read</th>
+                        <th>write</th>
+                      </tr>
+                    </thead>
+                    <tr class="bg-white">
+                      <th>owner</th>
+                      <td><app-boolean-indicator [value]="content.permissions.owner.read"></app-boolean-indicator></td>
+                      <td><app-boolean-indicator [value]="content.permissions.owner.write"></app-boolean-indicator></td>
+                    </tr>
+                    <tr class="bg-white">
+                      <th>assignee</th>
+                      <td><app-boolean-indicator [value]="content.permissions.assignee.read"></app-boolean-indicator></td>
+                      <td><app-boolean-indicator [value]="content.permissions.assignee.write"></app-boolean-indicator></td>
+                    </tr>
+                    <tr class="bg-white">
+                      <th>other</th>
+                      <td><app-boolean-indicator [value]="content.permissions.other.read"></app-boolean-indicator></td>
+                      <td><app-boolean-indicator [value]="content.permissions.other.write"></app-boolean-indicator></td>
+                    </tr>
+
+                    <tr *ngFor="let g of content.permissions.group | keyvalue" class="bg-white">
+                      <th>{{g.key}} (group)</th>
+                      <td><app-boolean-indicator [value]="g.value.read"></app-boolean-indicator></td>
+                      <td><app-boolean-indicator [value]="g.value.write"></app-boolean-indicator></td>
+                    </tr>
+
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <th>Indexed Versions</th>
+                <td>
+                  <table class="table table-sm bg-white ">
+                    <thead>
+                    <tr class="bg-white">
+                      <th>Index</th>
+                      <th>Version</th>
+                    </tr>
+                    </thead>
+
+
+                    <tr *ngFor="let g of content.searchVersions | keyvalue" class="bg-white">
+                      <th>{{g.key}}</th>
+                      <td>{{g.value}}</td>
+                    </tr>
+
+                  </table>
+                </td>
               </tr>
             </table>
           </div>

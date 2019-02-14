@@ -13,9 +13,14 @@
         <th>Workflows</th>
       </tr>
       </thead>
-      <tr *ngFor="let contentType of contentTypes" [routerLink]="'/content-type/' + contentType.name">
-        <td>{{contentType.name}}</td>
-        <td>{{contentType.workflows}}</td>
+      <tr *ngFor="let contentType of contentTypes" >
+        <td>
+
+          <a [routerLink]="'/content-type/' + contentType.name">{{contentType.name}}</a>
+        </td>
+        <td>
+          <a [routerLink]="'/workflows/' + workflow" *ngFor="let workflow of contentType.workflows">{{workflow}}</a>
+        </td>
       </tr>
     </table>
   </div>

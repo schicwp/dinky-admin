@@ -20,14 +20,14 @@ export class ContentListComponent implements OnInit {
   workflows:{[name:string]:Workflow} = {}
   page:Page<Content>;
   type:string;
-  pageNumbers:number[];
-  surroundingPages:number[];
   currentPage:number = 0;
 
   constructor(private contentService:ContentService,private activatedRoute:ActivatedRoute, private configService:ConfigService) { }
 
   ngOnInit() {
+
     this.activatedRoute.params.subscribe((p:any)=> {
+      this.currentPage = 0;
       this.type = p.type;
       this.refresh()
 
@@ -44,6 +44,7 @@ export class ContentListComponent implements OnInit {
   }
 
   setPage(p:number){
+    console.log("Setting page: " + p)
     this.currentPage = p;
     this.refresh()
   }
@@ -52,19 +53,6 @@ export class ContentListComponent implements OnInit {
 
       this.contentService.list(this.type,this.currentPage,10).subscribe(p=>{
         this.page = p;
-        this.pageNumbers = [];
-        this.surroundingPages = [];
-        for (let i = 0; i < this.page.totalPages;i++){
-          this.pageNumbers.push(i)
-        }
-
-        let windowStart = Math.max(this.page.number - 3,0);
-        let windowEnd = Math.min(this.page.number + 4,this.page.totalPages);
-
-
-        for (let i = windowStart; i < windowEnd;i++){
-          this.surroundingPages.push(i)
-        }
 
       })
 
@@ -74,7 +62,10 @@ export class ContentListComponent implements OnInit {
 
     let workflow:Workflow = this.workflows[content.workflow]
 
-    let actions = []
+    if (!workflow)
+      return [];
+
+    let actions = [];
 
     workflow.actions.forEach(action=>{
       if (!action.sourceStates || action.sourceStates.length == 0 || action.sourceStates.indexOf(content.state) >= 0){

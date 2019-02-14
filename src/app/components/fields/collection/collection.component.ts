@@ -21,6 +21,10 @@ export class CollectionComponent extends ContentFieldComponent implements OnInit
       if (!this.value)
         this.value = [];
 
+      if (this.value.indexOf(this.newValue) >= 0)
+        return;
+
+
       this.value.push(this.newValue)
       this.newValue = null;
 
@@ -32,6 +36,15 @@ export class CollectionComponent extends ContentFieldComponent implements OnInit
     console.log(e)
 
     this.newValue = e;
+  }
+
+
+  remove(v){
+    let i = this.value.indexOf(v);
+
+    if (i >= 0)
+      this.value.splice(i,1)
+
   }
 
 }

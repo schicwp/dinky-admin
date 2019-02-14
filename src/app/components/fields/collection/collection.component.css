@@ -1,0 +1,10 @@
+
+
+.collection-element{
+  border: 1px dotted darkgray;
+  padding: 10px;
+  margin: 4px;
+  border-radius: 5px;
+  width: 100%;
+}
+

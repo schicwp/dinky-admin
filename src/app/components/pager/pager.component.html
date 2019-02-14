@@ -1,0 +1,26 @@
+
+
+
+<div class="row d-flex justify-content-between  mb-2 mt-2" *ngIf="page">
+  <div class="col">
+    Showing {{page.number * page.size }} - {{page.number * page.size + page.numberOfElements }}  of {{page.totalElements}}
+  </div>
+
+  <div class="col d-flex justify-content-end align-items-center">
+  <nav aria-label="..." *ngIf="page.totalPages > 1">
+    <ul class="pagination">
+
+      <li class="page-item" [ngClass]="{disabled:page.number == 0}">
+        <span class="page-link" (click)="setPage(page.number - 1)">Previous</span>
+      </li>
+      <li class="page-item" *ngFor="let p of surroundingPages" [ngClass]="{'active':p == page.number}"><span class="page-link" (click)="setPage(p)">{{p + 1}}</span></li>
+      <li class="page-item" [ngClass]="{disabled:page.number == page.totalPages-1}">
+        <span class="page-link" (click)="setPage(page.number + 1)" >Next</span>
+      </li>
+    </ul>
+  </nav>
+  </div>
+
+</div>
+
+

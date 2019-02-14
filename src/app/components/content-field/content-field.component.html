@@ -1,6 +1,3 @@
-
-
-
 <ng-container [ngSwitch]="field.type">
 
   <app-date-field *ngSwitchCase="'Date'"  [field]="field" [value]="value" [state]="state" (valueChange)="valueChange.emit($event)"></app-date-field>

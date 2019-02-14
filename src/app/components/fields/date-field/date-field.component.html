@@ -1,4 +1,5 @@
 
+<ng-container *ngIf="state == 'edit'">
 <div class="row align-middle">
 
   <div class="d-flex col align-middle justify-content-center align-content-center align-items-center" >
@@ -13,3 +14,8 @@
     <ngb-timepicker [(ngModel)]="time" (ngModelChange)="onChange()" [disabled]="state =='view'"></ngb-timepicker>
   </div>
 </div>
+</ng-container>
+
+<ng-container *ngIf="state == 'view'">
+  <p><code>{{value}}</code></p>
+</ng-container>

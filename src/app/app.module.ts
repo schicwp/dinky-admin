@@ -19,9 +19,13 @@ import { StringComponent } from './components/fields/string/string.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {NgbDatepicker, NgbDatepickerModule, NgbTabsetModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { DateFieldComponent } from './components/fields/date-field/date-field.component';
-
+import { SearchComponent } from './routes/search/search.component';
+import { PagerComponent } from './components/pager/pager.component';
+import { BooleanIndicatorComponent } from './components/boolean-indicator/boolean-indicator.component';
+import { ConfigViewComponent } from './components/config-view/config-view.component';
 
 const routes: Routes = [
+  { path: 'search', component: SearchComponent },
   { path: 'workflows', component: WorkflowListComponent },
   { path: 'workflows/:name', component: WorkflowDetailsComponent },
   { path: 'content-type', component: ContentTypeListComponent },
@@ -45,7 +49,11 @@ const routes: Routes = [
     CollectionComponent,
     ContentFieldComponent,
     StringComponent,
-    DateFieldComponent
+    DateFieldComponent,
+    SearchComponent,
+    PagerComponent,
+    BooleanIndicatorComponent,
+    ConfigViewComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +63,7 @@ const routes: Routes = [
     NgSelectModule,
     NgbTabsetModule,
     NgbDatepickerModule,
-    NgbTimepickerModule
+    NgbTimepickerModule,
   ],
   providers: [
     {
