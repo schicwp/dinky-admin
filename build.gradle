@@ -23,4 +23,4 @@ task copyDistribution(type: Copy){
   into "src/main/resources/static/admin"
 }
 
-tasks.jar.dependsOn copyDistribution
+tasks.processResources.dependsOn copyDistribution
