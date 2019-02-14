@@ -10,8 +10,6 @@ import {User} from "./model/config/user.model";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'dinky-explorer';
-
 
   contentTypes:ContentType[]
 
