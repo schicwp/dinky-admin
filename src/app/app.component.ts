@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.authService.getCurrentUser().subscribe(u => this.user = u)
+    this.authService.getCurrentUser().subscribe(u => this.user = u,()=>this.authService.clearTokens())
     this.configService.getContentTypes().subscribe(c=> this.contentTypes = c)
 
   }

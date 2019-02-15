@@ -1,16 +1,17 @@
 <div class="row no-gutters align-items-center">
 
   <div class="col-2 mr-2">
-    <select  class="form-control bg-light border-0 small" [(ngModel)]="index" >
+    <select  class="form-control bg-light small" [(ngModel)]="index" >
       <option *ngFor="let i of indexes">{{i}}</option>
     </select>
   </div>
   <div class="col mr-2">
     <form>
       <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" name="q" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="q">
+        <input type="text" class="form-control bg-light  small" name="q" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="q">
         <div class="input-group-append">
           <button class="btn btn-primary" type="submit" (click)="doSearch()">
+            <i class="fa fa-search"></i>
             Search
           </button>
         </div>

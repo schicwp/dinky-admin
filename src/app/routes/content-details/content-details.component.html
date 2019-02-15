@@ -1,34 +1,23 @@
-<div class="card">
+<div class="card border-left-primary shadow h-100 ">
 
   <div class="card-body" *ngIf="content && contentType">
 
-    <ngb-tabset>
+    <ngb-tabset justify="justified">
       <ngb-tab title="Content">
         <ng-template ngbTabContent>
 
           <!-- Card Body -->
           <div class="card-body">
             <div class=" py-3 d-flex flex-row align-items-center justify-content-between">
-              <span *ngIf="state == 'view'">
+              <span>
                 <h5>{{content.name}}</h5>
-                <small> Type: {{content.type}} | State: {{content.state}}</small>
               </span>
-              <span *ngIf="state == 'view'" class="btn  btn-primary float-right"
-                    (click)="state = 'edit'">edit</span>
-
-              <span *ngIf="state == 'edit'">
-          <span *ngIf="state == 'edit'" class="btn  btn-success mr-2" (click)="save()">save</span>
-          <span *ngIf="state == 'edit'" class="btn  btn-warning " (click)="cancel()">cancel</span>
-        </span>
-
-              <span *ngIf="state == 'edit'">
-          <span class="btn   btn-outline-primary mr-2" *ngFor="let action of getAvailableActions(content)"
-                (click)="executeAction(action.name)">
-            {{action.name}}
-          </span>
-
-        </span>
+              <span>
+                <h6><strong>Type: </strong>
+                  <a [routerLink]="'/content-type' + content.type">{{content.type}}</a> | <strong>State:</strong> <span class="badge badge-primary mr-1 ml-1">{{content.state}}</span> | <strong>Version:</strong> {{content.version}}</h6>
+              </span>
             </div>
+            <hr>
 
             <form>
 
@@ -40,6 +29,39 @@
               </div>
 
             </form>
+
+            <hr>
+            <div class="d-flex justify-content-between">
+              <span></span>
+              <span *ngIf="state == 'view'" class="btn  btn-outline-primary float-right"
+                    (click)="state = 'edit'">
+          <i class="fa fa-edit"></i>
+          edit
+        </span>
+            </div>
+
+            <div class="d-flex justify-content-between" *ngIf="state == 'edit'">
+        <span>
+          <span *ngIf="state == 'edit'" class="btn  btn-outline-success mr-2" (click)="save()">
+            <i class="fa fa-save"></i>
+            save
+          </span>
+          <span *ngIf="state == 'edit'" class="btn  btn-outline-warning " (click)="cancel()">
+             <i class="fa fa-trash"></i>
+            cancel
+          </span>
+        </span>
+              <span>
+          <span *ngIf="state == 'edit'">
+            <span class="btn   btn-outline-primary mr-2" *ngFor="let action of getAvailableActions(content)"
+                  (click)="executeAction(action.name)">
+              <i class="fa fa-gears"></i>
+              {{action.name}}
+            </span>
+
+          </span>
+        </span>
+            </div>
           </div>
         </ng-template>
 
@@ -49,7 +71,7 @@
           <div class="card-body">
 
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-striped">
               <thead>
               <tr>
                 <th>Property</th>
@@ -88,6 +110,14 @@
               <tr>
                 <th>Owner</th>
                 <td>{{content.owner}}</td>
+              </tr>
+              <tr>
+                <th>Created By</th>
+                <td>{{content.createdBy}}</td>
+              </tr>
+              <tr>
+                <th>Last Modified By</th>
+                <td>{{content.modifiedBy}}</td>
               </tr>
               <tr>
                 <th>Assigned Group</th>
@@ -162,24 +192,34 @@
         <ng-template ngbTabContent>
           <div class="card-body">
 
-            <table class="table">
-              <tr>
-                <th>Version</th>
-                <th>State</th>
-                <th>Date</th>
-              </tr>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Version</th>
+                  <th>State</th>
+                  <th>Indexes</th>
+                  <th>Date</th>
+                  <th>Modified By</th>
+                </tr>
+              </thead>
               <tr *ngFor="let version of history.content">
                 <td>{{version.version}}</td>
                 <td>{{version.state}}</td>
-                <td>{{version.modified | date: "medium"}}</td>
+                <td>{{indexesForVersion(version.version)}}</td>
+                <td>{{version.modified | date: "short"}}</td>
+                <td>{{version.modifiedBy}}</td>
               </tr>
             </table>
+
+            <app-pager [page]="history" (pageChange)="pageChange($event)"></app-pager>
 
 
           </div>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
+
+
   </div>
 
 </div>

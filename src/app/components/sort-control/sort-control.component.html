@@ -1,0 +1,4 @@
+<div (click)="onSortChange()">
+  <i class="fa fa-long-arrow-up" [ngClass]="{faded:sort.desc() || sort.field != field }" ></i>
+  <i class="fa fa- fa-long-arrow-down"  [ngClass]="{faded:sort.asc() || sort.field != field }" ></i>
+</div>

@@ -8,6 +8,7 @@ import {ContentType} from "../../model/config/content-type.model";
 import {Workflow} from "../../model/config/workflow.model";
 import {Action} from "../../model/config/action.model";
 import {ContentSubmission} from "../../model/config/content-submission.model";
+import {Sort, SortDirection} from "../../model/sort.model";
 
 @Component({
   selector: 'app-content-list',
@@ -21,6 +22,8 @@ export class ContentListComponent implements OnInit {
   page:Page<Content>;
   type:string;
   currentPage:number = 0;
+
+  sort:Sort = new Sort('modified',SortDirection.DESC);
 
   constructor(private contentService:ContentService,private activatedRoute:ActivatedRoute, private configService:ConfigService) { }
 
@@ -51,11 +54,15 @@ export class ContentListComponent implements OnInit {
 
   refresh(){
 
-      this.contentService.list(this.type,this.currentPage,10).subscribe(p=>{
+      this.contentService.list(this.type,this.currentPage,10, this.sort).subscribe(p=>{
         this.page = p;
-
       })
 
+  }
+
+  setSort(sort:Sort){
+    this.sort = sort;
+    this.refresh();
   }
 
   getAvailableActions(content:Content):Action[]{

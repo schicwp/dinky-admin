@@ -11,11 +11,25 @@
     <ul class="pagination">
 
       <li class="page-item" [ngClass]="{disabled:page.number == 0}">
-        <span class="page-link" (click)="setPage(page.number - 1)">Previous</span>
+        <span class="page-link" (click)="setPage(0 )" >
+          <i class="fa fa-angle-double-left"></i>
+        </span>
+      </li>
+      <li class="page-item" [ngClass]="{disabled:page.number == 0}">
+        <span class="page-link" (click)="setPage(page.number - 1)">
+          <i class="fa fa-angle-left"></i>
+        </span>
       </li>
       <li class="page-item" *ngFor="let p of surroundingPages" [ngClass]="{'active':p == page.number}"><span class="page-link" (click)="setPage(p)">{{p + 1}}</span></li>
       <li class="page-item" [ngClass]="{disabled:page.number == page.totalPages-1}">
-        <span class="page-link" (click)="setPage(page.number + 1)" >Next</span>
+        <span class="page-link" (click)="setPage(page.number + 1)" >
+          <i class="fa fa-angle-right"></i>
+        </span>
+      </li>
+      <li class="page-item" [ngClass]="{disabled:page.number == page.totalPages-1}">
+        <span class="page-link" (click)="setPage(page.totalPages -1 )" >
+          <i class="fa fa-angle-double-right"></i>
+        </span>
       </li>
     </ul>
   </nav>

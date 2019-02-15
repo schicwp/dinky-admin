@@ -28,6 +28,8 @@ import { BooleanIndicatorComponent } from './components/boolean-indicator/boolea
 import { ConfigViewComponent } from './components/config-view/config-view.component';
 import { SubmissionErrorDialogComponent } from './components/submission-error-dialog/submission-error-dialog.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
+import { SortControlComponent } from './components/sort-control/sort-control.component';
+import { MaintenanceComponent } from './routes/maintenance/maintenance.component';
 
 const routes: Routes = [
   { path: 'search', component: SearchComponent },
@@ -38,6 +40,8 @@ const routes: Routes = [
   { path: 'content-type/:name', component: ContentTypeDetailsComponent },
   { path: 'content/:type', component: ContentListComponent },
   { path: 'content/:type/:id', component: ContentDetailsComponent },
+  { path: 'create/:type', component: ContentDetailsComponent },
+  { path: 'maintenance', component: MaintenanceComponent },
   { path: '**', redirectTo: "/workflows" }
 ];
 
@@ -61,7 +65,9 @@ const routes: Routes = [
     BooleanIndicatorComponent,
     ConfigViewComponent,
     SubmissionErrorDialogComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    SortControlComponent,
+    MaintenanceComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+<div class="card border-left-primary shadow h-100 py-2 mb-6">
+  <!-- Card Header - Dropdown -->
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Maintenance</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+
+
+    <div class="form-group">
+      <label>Rebuild Index</label>
+      <div class="input-group">
+        <select class="form-control" [(ngModel)]="index">
+          <option *ngFor="let index of indexes">{{index}}</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn-primary btn" (click)="rebuildIndex(index)">
+            <i class="fa fa-bomb"></i>
+            Rebuild Index</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

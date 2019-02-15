@@ -20,7 +20,7 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
       <a class="nav-link" routerLink="/search">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <i class="fa  fa-fw  fa-search"></i>
         <span>Search</span></a>
     </li>
 
@@ -31,6 +31,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link" (click)="showContentTypes = !showContentTypes">
+        <i class="fa fa-fw fa-database"></i>
         <span>Content</span>
       </a>
     </li>
@@ -50,7 +51,8 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="'/content-type'">
+      <a class="nav-link w-100" [routerLink]="'/content-type'">
+        <i class="fa  fa-fw  fa-th-list"></i>
         <span>Content Types</span>
       </a>
     </li>
@@ -58,7 +60,16 @@
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link"  [routerLink]="'/workflow'">
+        <i class="fa  fa-fw  fa-gears"></i>
         <span>Workflows</span>
+      </a>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link"  [routerLink]="'/maintenance'">
+        <i class="fa  fa-fw  fa-wrench"></i>
+        <span>Maintenance</span>
       </a>
     </li>
 

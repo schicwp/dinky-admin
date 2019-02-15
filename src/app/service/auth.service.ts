@@ -19,11 +19,7 @@ export class AuthService {
   }
 
   getCurrentUser():Observable<User>{
-    return this.httpClient.get<User>("/api/v1/auth/current").pipe(catchError((e,caught)=>{
-      this.token = null;
-      localStorage.removeItem("token")
-      return caught
-    }))
+    return this.httpClient.get<User>("/api/v1/auth/current");
   }
 
   login(username:string, password:string):Observable<User>{
@@ -32,17 +28,16 @@ export class AuthService {
         this.token = r.token;
         localStorage.setItem("token",this.token)
         return this.getCurrentUser()
-      }),
-      catchError((e,caught)=>{
-        this.token = null;
-        localStorage.removeItem("token")
-        return caught
       })
     )
   }
 
-  logout(){
+  clearTokens(){
     localStorage.removeItem("token")
+  }
+
+  logout(){
+    this.clearTokens()
     document.location.reload()
   }
 }

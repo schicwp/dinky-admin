@@ -4,6 +4,8 @@ import {Content} from "../../model/config/content.model";
 import {Page} from "../../model/page.model";
 import {SearchQuery} from "../../model/search-query.model";
 import {ActivatedRoute} from "@angular/router";
+import {Sort, SortDirection} from "../../model/sort.model";
+import {SearchContent} from "../../model/search-content.model";
 
 @Component({
   selector: 'app-search',
@@ -13,8 +15,9 @@ import {ActivatedRoute} from "@angular/router";
 export class SearchComponent implements OnInit {
 
   q:SearchQuery;
-  result:Page<Content>;
+  result:Page<SearchContent>;
   currentPage:number = 0;
+  sort:Sort = new Sort('_score',SortDirection.DESC)
 
 
   constructor(private searchService:SearchService, private activedRoute:ActivatedRoute) { }
@@ -23,7 +26,7 @@ export class SearchComponent implements OnInit {
     this.activedRoute.params.subscribe((params:any)=>{
       if (params.index && params.query){
         this.q = new SearchQuery(params.index,params.query)
-        this.searchService.search(this.q.index,this.q.query,this.currentPage,10).subscribe( c=> this.result = c)
+        this.search(this.q)
 
       }
 
@@ -34,13 +37,18 @@ export class SearchComponent implements OnInit {
 
   search(q:SearchQuery){
     this.q = q;
-    this.searchService.search(q.index,q.query,this.currentPage,10).subscribe( c=> this.result = c)
+    this.searchService.search(q.index,q.query,this.currentPage,10, this.sort).subscribe( c=> this.result = c)
   }
 
   setPage(p:number){
     this.currentPage = p;
     this.search(this.q)
 
+  }
+
+  setSort(sort:Sort){
+    this.sort = sort;
+    this.search(this.q)
   }
 
 

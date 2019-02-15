@@ -21,6 +21,9 @@ export class ContentDetailsComponent implements OnInit {
   contentType:ContentType
   workflows:{[s:string]:Workflow} = {};
   history:Page<Content>;
+  historyPageNumber:number = 0;
+
+  id:string;
 
   state:string = "view";
 
@@ -31,23 +34,48 @@ export class ContentDetailsComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((p:any)=>{
 
-      this.contentService.get(p.id).subscribe(content=>{
-        this.content = content;
 
-        this.configService.getContentType(this.content.type).subscribe(c=>{
-          this.contentType = c
+      if (p.id) {
+        this.id = p.id;
+        this.historyPageNumber = 0;
 
-          this.contentType.workflows.forEach(wn=>{
+        this.contentService.get(p.id).subscribe(content => {
+          this.content = content;
+
+          this.configService.getContentType(this.content.type).subscribe(c => {
+            this.contentType = c
+
+            this.contentType.workflows.forEach(wn => {
+              this.configService.getWorkflow(wn).subscribe(w => this.workflows[wn] = w)
+            })
+          })
+        });
+
+        this.getHistory();
+      } else if (p.type){
+        this.content = {
+          type:p.type,
+          content:{}
+        } as Content;
+
+        this.state = 'edit';
+
+        this.configService.getContentType(this.content.type).subscribe(c => {
+          this.contentType = c;
+
+          this.contentType.workflows.forEach(wn => {
             this.configService.getWorkflow(wn).subscribe(w => this.workflows[wn] = w)
           })
         })
-      })
-
-      this.contentService.getHistory(p.id,0,10).subscribe( h=>this.history = h)
+      }
 
 
     })
 
+  }
+
+  getHistory(){
+    this.contentService.getHistory(this.id,this.historyPageNumber,10).subscribe( h=>this.history = h)
   }
 
   save(){
@@ -95,11 +123,12 @@ export class ContentDetailsComponent implements OnInit {
 
   getAvailableActions(content:Content):Action[]{
 
+
     let workflow:Workflow = this.workflows[content.workflow];
 
     let actions = [];
 
-    workflow.actions.forEach(action=>{
+    workflow && workflow.actions.forEach(action=>{
       if (!action.sourceStates || action.sourceStates.length == 0 || action.sourceStates.indexOf(content.state) >= 0){
         actions.push(action)
       }
@@ -108,6 +137,26 @@ export class ContentDetailsComponent implements OnInit {
     return actions
 
   }
+
+  pageChange(page:number){
+    this.historyPageNumber = page;
+    this.getHistory();
+  }
+
+  indexesForVersion(version:number){
+    let result = []
+
+    if (this.content && this.content.searchVersions){
+
+      Object.keys(this.content.searchVersions).forEach(index=>{
+        if (this.content.searchVersions[index] == version)
+          result.push(index)
+      })
+    }
+
+    return result;
+  }
+
 
 
 

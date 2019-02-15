@@ -4,6 +4,7 @@ import {Page} from "../model/page.model";
 import {Content} from "../model/config/content.model";
 import {Observable} from "rxjs/index";
 import {ContentSubmission} from "../model/config/content-submission.model";
+import {Sort, SortDirection} from "../model/sort.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +15,25 @@ export class ContentService {
 
 
 
-  list(type:string,page:number,size:number):Observable<Page<Content>>{
-
-    let params = new HttpParams()
-      .set("type",type)
-      .set("page",`${page}`)
-      .set("size",`${size}`);
-
-    return this.httpClient.get<Page<Content>>("/api/v1/content",{params:params})
-  }
-
-  search(type:string,q:string,page:number,size:number):Observable<Page<Content>>{
+  list(type:string,page:number,size:number, sort:Sort = new Sort("modified",SortDirection.DESC)):Observable<Page<Content>>{
 
     let params = new HttpParams()
       .set("type",type)
       .set("page",`${page}`)
       .set("size",`${size}`)
-      .set("q",q);
+      .set("sort",`${sort}`);
+
+    return this.httpClient.get<Page<Content>>("/api/v1/content",{params:params})
+  }
+
+  search(type:string,q:string,page:number,size:number,sort:Sort = new Sort("modified",SortDirection.DESC)):Observable<Page<Content>>{
+
+    let params = new HttpParams()
+      .set("type",type)
+      .set("page",`${page}`)
+      .set("size",`${size}`)
+      .set("q",q)
+      .set("sort",`${sort}`);
 
     return this.httpClient.get<Page<Content>>("/api/v1/content",{params:params})
   }

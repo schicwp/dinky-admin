@@ -8,6 +8,8 @@ export interface Content {
   workflow:string
   state:string
   owner:string
+  modifiedBy:string
+  createdBy:string
   assignedUser:string
   assignedGroup:string
   searchVersions:{[a:string]:number}
