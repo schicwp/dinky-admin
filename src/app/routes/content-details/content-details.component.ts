@@ -8,6 +8,8 @@ import {Workflow} from "../../model/config/workflow.model";
 import {ContentSubmission} from "../../model/config/content-submission.model";
 import {Action} from "../../model/config/action.model";
 import {Page} from "../../model/page.model";
+import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
+import {SubmissionErrorDialogComponent} from "../../components/submission-error-dialog/submission-error-dialog.component";
 
 @Component({
   selector: 'app-content-details',
@@ -22,7 +24,8 @@ export class ContentDetailsComponent implements OnInit {
 
   state:string = "view";
 
-  constructor(private contentService:ContentService, private configService:ConfigService, private activatedRoute:ActivatedRoute) { }
+  constructor(private contentService:ContentService, private configService:ConfigService,
+              private activatedRoute:ActivatedRoute, private modalService: NgbModal) { }
 
   ngOnInit() {
 
@@ -59,7 +62,11 @@ export class ContentDetailsComponent implements OnInit {
       this.content = c;
       this.state = 'view'
       this.ngOnInit()
-    })
+    },e=>
+      this.modalService
+        .open(SubmissionErrorDialogComponent, {} as NgbModalOptions)
+        .componentInstance.error = e
+    )
   }
 
   cancel(){
@@ -78,6 +85,11 @@ export class ContentDetailsComponent implements OnInit {
     )).subscribe( c=> {
       this.content = c;
       this.state = 'view'
+    },(e)=> {
+      this.modalService
+        .open(SubmissionErrorDialogComponent, {} as NgbModalOptions)
+        .componentInstance.error = e
+
     })
   }
 

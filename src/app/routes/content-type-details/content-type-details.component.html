@@ -1,11 +1,11 @@
 <div class="card shadow mb-4">
   <!-- Card Header - Dropdown -->
   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-    <h6 class="m-0 font-weight-bold text-primary">Content Type: {{contentType.name}}</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Content Type: {{contentType?.name}}</h6>
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <h6>Workflows: {{contentType.workflows}}</h6>
+    <h6>Workflows: {{contentType?.workflows}}</h6>
 
     <h6>Fields:</h6>
     <table class="table">
@@ -18,7 +18,7 @@
         <th>Config</th>
       </tr>
       </thead>
-      <tr *ngFor="let field of contentType.fields">
+      <tr *ngFor="let field of contentType?.fields">
         <th>{{field.name}}</th>
         <td>{{field.type}}</td>
         <td>

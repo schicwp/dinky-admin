@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SearchService} from "../../service/search.service";
 import {Content} from "../../model/config/content.model";
 import {Page} from "../../model/page.model";
+import {SearchQuery} from "../../model/search-query.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -10,26 +12,29 @@ import {Page} from "../../model/page.model";
 })
 export class SearchComponent implements OnInit {
 
-  indexes:string[] = [];
-  q:string = "";
+  q:SearchQuery;
   result:Page<Content>;
-  index:string;
   currentPage:number = 0;
 
 
-  constructor(private searchService:SearchService) { }
+  constructor(private searchService:SearchService, private activedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+    this.activedRoute.params.subscribe((params:any)=>{
+      if (params.index && params.query){
+        this.q = new SearchQuery(params.index,params.query)
+        this.searchService.search(this.q.index,this.q.query,this.currentPage,10).subscribe( c=> this.result = c)
 
-    this.searchService.getIndexes().subscribe(i=>{
-      this.indexes = i
-      if (this.indexes.length > 0)
-        this.index = this.indexes[0]
+      }
+
     })
+
+
   }
 
-  search(q:string){
-    this.searchService.search(this.index,q,this.currentPage,10).subscribe( c=> this.result = c)
+  search(q:SearchQuery){
+    this.q = q;
+    this.searchService.search(q.index,q.query,this.currentPage,10).subscribe( c=> this.result = c)
   }
 
   setPage(p:number){

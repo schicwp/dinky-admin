@@ -17,15 +17,21 @@ import { CollectionComponent } from './components/fields/collection/collection.c
 import { ContentFieldComponent } from './components/content-field/content-field.component';
 import { StringComponent } from './components/fields/string/string.component';
 import {NgSelectModule} from "@ng-select/ng-select";
-import {NgbDatepicker, NgbDatepickerModule, NgbTabsetModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbDatepicker, NgbDatepickerModule, NgbModalModule, NgbTabsetModule,
+  NgbTimepickerModule
+} from "@ng-bootstrap/ng-bootstrap";
 import { DateFieldComponent } from './components/fields/date-field/date-field.component';
 import { SearchComponent } from './routes/search/search.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { BooleanIndicatorComponent } from './components/boolean-indicator/boolean-indicator.component';
 import { ConfigViewComponent } from './components/config-view/config-view.component';
+import { SubmissionErrorDialogComponent } from './components/submission-error-dialog/submission-error-dialog.component';
+import { SearchBoxComponent } from './components/search-box/search-box.component';
 
 const routes: Routes = [
   { path: 'search', component: SearchComponent },
+  { path: 'search/:index/:query', component: SearchComponent },
   { path: 'workflows', component: WorkflowListComponent },
   { path: 'workflows/:name', component: WorkflowDetailsComponent },
   { path: 'content-type', component: ContentTypeListComponent },
@@ -53,7 +59,9 @@ const routes: Routes = [
     SearchComponent,
     PagerComponent,
     BooleanIndicatorComponent,
-    ConfigViewComponent
+    ConfigViewComponent,
+    SubmissionErrorDialogComponent,
+    SearchBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +72,7 @@ const routes: Routes = [
     NgbTabsetModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
+    NgbModalModule
   ],
   providers: [
     {
@@ -72,6 +81,7 @@ const routes: Routes = [
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[SubmissionErrorDialogComponent]
 })
 export class AppModule { }

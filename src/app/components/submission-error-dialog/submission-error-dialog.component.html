@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h6 class="modal-title">Submission Error</h6>
+</div>
+<div class="modal-body">
+  <p>Status: {{error.status}}</p>
+  <p class="text-danger">{{error?.error?.message}}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

@@ -27,32 +27,30 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Content
-    </div>
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link" (click)="showContentTypes = !showContentTypes">
+        <span>Content</span>
+      </a>
+    </li>
 
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item" *ngFor="let contentType of contentTypes">
-      <a class="nav-link" [routerLink]="'content/' + contentType.name">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>{{contentType.name}}</span></a>
+
+    <li class="nav-item" *ngIf="showContentTypes">
+      <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"  style="">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Content Types:</h6>
+          <a class="collapse-item" *ngFor="let contentType of contentTypes" [routerLink]="'content/' + contentType.name">{{contentType.name}}</a>
+        </div>
+      </div>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Configuration
-    </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link" [routerLink]="'/content-type'">
-        <i class="fas fa-fw fa-cog"></i>
         <span>Content Types</span>
       </a>
     </li>
@@ -60,7 +58,6 @@
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link"  [routerLink]="'/workflow'">
-        <i class="fas fa-fw fa-wrench"></i>
         <span>Workflows</span>
       </a>
     </li>
@@ -87,6 +84,10 @@
           <i class="fa fa-bars"></i>
         </button>
 
+
+        <app-search-box class="w-50" (search)="search($event)"></app-search-box>
+
+
         <!-- Topbar Search -->
         <!--form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
           <div class="input-group">
@@ -101,6 +102,7 @@
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
+
 
 
 
@@ -130,7 +132,7 @@
 
 
       <!-- Begin Page Content -->
-      <div class="container-fluid">
+      <div class="container-fluid mb-5">
 
         <router-outlet></router-outlet>
 
@@ -142,8 +144,8 @@
     <!-- End of Main Content -->
 
     <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
+    <!--footer class="sticky-footer bg-white mt-10">
+      <div class="container my-auto mt-5">
         <div class="copyright text-center my-auto">
           <span>Dinky!</span>
         </div>

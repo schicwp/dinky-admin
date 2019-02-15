@@ -1,27 +1,8 @@
-<div class="card border-left-primary shadow h-100 py-2 mb-6">
+<!--div class="card border-left-primary shadow h-100 py-2 mb-6">
   <div class="card-body">
-    <div class="row no-gutters align-items-center">
-
-      <div class="col-2 mr-2">
-        <select  class="form-control bg-light border-0 small" [(ngModel)]="index" >
-          <option *ngFor="let i of indexes">{{i}}</option>
-        </select>
-      </div>
-      <div class="col mr-2">
-        <div class="input-group">
-          <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="q">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button" (click)="search(q)">
-              <i class="fas fa-search fa-sm"></i>
-              Search
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <app-search-box (search)="search($event)"></app-search-box>
   </div>
-</div>
+</div-->
 
 
 

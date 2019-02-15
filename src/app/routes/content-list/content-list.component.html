@@ -1,7 +1,8 @@
 <div class="card shadow mb-4">
   <!-- Card Header - Dropdown -->
   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-    <h6 class="m-0 font-weight-bold text-primary"><em>{{type}}</em> List</h6>
+    <h6 class="m-0 font-weight-bold text-primary"><em>{{type}}</em></h6>
+    <button class="btn btn-sm btn-success">Create</button>
 
   </div>
   <!-- Card Body -->
@@ -21,7 +22,7 @@
         <th>Version</th>
         <th>Owner</th>
         <th>Last Modified</th>
-        <th>Actions</th>
+        <th style="max-width: 17%">Actions</th>
       </tr>
       </thead>
       <tr *ngFor="let content of page?.content">
@@ -32,9 +33,9 @@
         <td>{{content.version}}</td>
         <td>{{content.owner}}</td>
         <td>{{content.modified | date:'medium'}}</td>
-        <td>
+        <td style="max-width: 17%">
           <span *ngFor="let action of getAvailableActions(content)">
-            <span class="btn btn-sm btn-primary mr-2 mb-2" (click)="performAction(content,action)">
+            <span class="btn btn-sm btn-outline-primary mr-2 mb-2" (click)="performAction(content,action)">
              {{action.name}}
             </span>
 

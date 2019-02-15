@@ -30,7 +30,7 @@ export class DateFieldComponent extends ContentFieldComponent implements OnInit,
 
     let input = new Date(this.value)
 
-    this.date = {year:input.getFullYear(),month:input.getMonth(),day:input.getDate()} as NgbDateStruct
+    this.date = {year:input.getFullYear(),month:input.getMonth() + 1,day:input.getDate()} as NgbDateStruct
     this.time = {hour:input.getHours(),minute:input.getMinutes(),second:input.getSeconds()} as NgbTimeStruct
   }
 
@@ -45,7 +45,7 @@ export class DateFieldComponent extends ContentFieldComponent implements OnInit,
 
     if (this.date && this.time){
       result = new Date();
-      result.setFullYear(this.date.year,this.date.month,this.date.day)
+      result.setFullYear(this.date.year,this.date.month -1,this.date.day)
       result.setHours(this.time.hour,this.time.minute,this.time.second)
     }
 

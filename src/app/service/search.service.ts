@@ -26,10 +26,9 @@ export class SearchService {
   }
 
   getIndexes():Observable<string[]>{
-    let subject:Subject<string[]> = new Subject();
 
-    setTimeout(()=>subject.next(["published"]))
 
-    return subject.asObservable()
+    return this.httpClient.get<string[]>(`/api/v1/search`)
+
   }
 }

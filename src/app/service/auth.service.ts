@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/index";
+import {Observable, throwError} from "rxjs/index";
 import {User} from "../model/config/user.model";
-import {mergeMap} from "rxjs/internal/operators";
+import {catchError, mergeMap} from "rxjs/internal/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,10 @@ export class AuthService {
   }
 
   getCurrentUser():Observable<User>{
-    return this.httpClient.get<User>("/api/v1/auth/current")
+    return this.httpClient.get<User>("/api/v1/auth/current").pipe(catchError((e)=>{
+      this.token = null;
+      localStorage.removeItem("token")
+    }))
   }
 
   login(username:string, password:string):Observable<User>{
@@ -27,6 +30,10 @@ export class AuthService {
         this.token = r.token;
         localStorage.setItem("token",this.token)
         return this.getCurrentUser()
+      }),
+      catchError((e)=>{
+        this.token = null;
+        localStorage.removeItem("token")
       })
     )
   }

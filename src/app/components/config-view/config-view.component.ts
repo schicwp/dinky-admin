@@ -39,7 +39,6 @@ export class ConfigViewComponent implements OnInit, OnChanges {
         value instanceof Boolean ||
       typeof value === "boolean"
     ) {
-      console.log("Primative")
       return value as string;
     }
 
